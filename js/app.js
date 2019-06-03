@@ -37,21 +37,20 @@
 
 */
 
-const randomUserAPI = `https://randomuser.me/api/?results=12&inc=name,location,email,dob,phone,id,picture`;
+const randomUserAPI = `https://randomuser.me/api/?results=12&nat=us&inc=name,location,email,dob,phone,id,picture`;
 const gallery = document.querySelector('#gallery');
-const modalContainer = document.querySelector('.modal-container');
 
-const getUsers = async url => {
+async function getUsers(url) {
   const users = await fetch(url);
-  const response = await users.json();
-  return response.results;
-};
-let cardHTML = '';
-const generateCard = employees => {
-  employees.map(employee => {
-    const cardDiv = document.createElement('div');
+  return await users.json();
+}
+
+function generateCard(employees) {
+  employees.map((employee, index) => {
     cardDiv.className = 'card';
+    cardDiv.setAttribute('key', index);
     gallery.appendChild(cardDiv);
+
     cardDiv.innerHTML = `
     <div class="card-img-container">
       <img class="card-img" alt="prof picture" src="${employee.picture.large}"/>
@@ -66,20 +65,53 @@ const generateCard = employees => {
     }</p>
         </div>
       </div>
+     
     `;
   });
-};
-getUsers(randomUserAPI).then(generateCard);
+}
+
+function createModal(employee) {
+  const modalDiv = document.createElement('div');
+  modalDiv.className = 'modal-container';
+  modalDiv.innerHTML = `
+  <div class="modal">
+    <button type="button" id="modal-close-btn" class="modal-close-btn">
+      <strong>X</strong>
+    </button>
+    <div class="modal-info-container">
+      <img
+        class="modal-img"
+        src=""
+        alt="profile picture"
+      />
+      <h3 id="name" class="modal-name cap">${employee.name.first}</h3>
+      <p class="modal-text">email</p>
+      <p class="modal-text cap">city</p>
+      <hr />
+      <p class="modal-text">(555) 555-5555</p>
+      <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+      <p class="modal-text">Birthday: 10/21/2015</p>
+    </div>
+  `;
+  gallery.appendChild(modalDiv);
+}
+
+getUsers(randomUserAPI).then(data => {
+  generateCard(data.results);
+
+  // const cardDiv = document.querySelector('.card');
+  const modalContainer = document.querySelector('.modal-container');
+  gallery.addEventListener('click', handleClick);
+});
 
 const handleClick = e => {
-  if (!e.target.className.includes('card')) {
-    return;
-  } else {
+  const modalContainer = document.querySelector('.modal-container');
+
+  if (e.target.className.includes('card')) {
     modalContainer.style.display = 'block';
   }
-};
 
-document.getElementById('modal-close-btn').addEventListener('click', () => {
-  modalContainer.style.display = 'none';
-});
-gallery.addEventListener('click', handleClick);
+  if (e.target.id === 'modal-close-btn' || e.target.textContent === 'X') {
+    modalContainer.style.display = 'none';
+  }
+};
