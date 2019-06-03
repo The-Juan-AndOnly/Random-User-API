@@ -35,8 +35,7 @@ class Modal {
       employee.location.city
     }, ${employee.location.state} ${employee.location.postcode}</p>
         <p class="modal-text">Birthday: ${dob}</p>
-      </div>
-      
+      </div>  
     `;
     modalDiv.style.display = 'block';
     modalDiv.addEventListener('click', this.handleClick);

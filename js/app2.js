@@ -1,6 +1,7 @@
 const card = new Card();
-// const cardList = new CardList();
+const cardList = new CardList();
 const modal = new Modal();
+
 const randomUserAPI = `https://randomuser.me/api/?results=12&nat=us&inc=name,location,email,dob,phone,id,picture`;
 employeesState = [];
 
@@ -8,10 +9,9 @@ const getEmployees = url => {
   fetch(randomUserAPI)
     .then(resp => resp.json())
     .then(data => {
-      const searchBar = new SearchBar(data.results);
-      searchBar.createSearchBar();
-      // const newState = new CardList([...employeesState, data.results].flat());
-      const newState = new CardList(data.results);
+      employeesState = [...data.results];
+
+      const newState = new CardList(employeesState);
       newState.generateCard();
     })
     .catch(err => {

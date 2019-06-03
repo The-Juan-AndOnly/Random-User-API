@@ -1,9 +1,11 @@
 class SearchBar {
-  constructor(employees) {
-    this.employees = employees;
+  constructor(something) {
+    this.something = something;
   }
   createSearchBar() {
     const searchContainer = document.querySelector('.search-container');
+    const search = this.something;
+    console.log(search);
     searchContainer.innerHTML = `
     <form action="#" method="get">
       <input
@@ -30,11 +32,11 @@ class SearchBar {
 
   handleInput(e) {
     // console.log(this.employees.filter(employee => employee === e.target.value));
-    console.log(this.employees);
   }
 
   handleSubmit(e) {
     e.preventDefault();
+
     console.log('Working as expected');
   }
 }
