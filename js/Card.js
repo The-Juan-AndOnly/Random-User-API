@@ -1,8 +1,16 @@
+/* 
+  Card class is in charge will displaying the info for each individual employee. 
+  
+*/
+
 class Card {
   constructor(employee, index) {
     this.employee = employee;
     this.index = index;
   }
+  // Function to print out each individual employee
+  // and attach them to the gallery div
+  // also add an eventListener for a card click
 
   printCard() {
     const cardDiv = document.createElement('div');
@@ -31,12 +39,12 @@ class Card {
     gallery.appendChild(cardDiv);
   }
 
+  // Function that handle the card click which will
+  // then instantiate the Modal component to be displayed
   handleClick = e => {
     if (e.target.className.includes('card')) {
       const modal = new Modal(this.employee, this.index);
       modal.createModal();
-    } else {
-      console.log('Sorry Sucka');
     }
   };
 }

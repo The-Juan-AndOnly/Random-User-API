@@ -1,14 +1,19 @@
+/*
+  Modal which will handle displaying the information from
+  the employee card that was clicked
+*/
+
 class Modal {
   constructor(employee, index) {
     this.employee = employee;
     this.index = index;
   }
 
+  // Function that create the modal and appends it to the gallery
   createModal() {
     const employee = this.employee;
-    const index = this.index;
-    console.log(index);
     const regex = /\d+(\d{2})-(\d{2})-(\d{2}).+/;
+    // Replace the birthday with a birthday is a MM/DD/YY format
     const dob = employee.dob.date.replace(regex, '$2 / $3 / $1');
 
     const modalDiv = document.createElement('div');
@@ -41,6 +46,9 @@ class Modal {
     modalDiv.addEventListener('click', this.handleClick);
     gallery.appendChild(modalDiv);
   }
+
+  // Function that handle the click Event Listener to
+  // close the modal and remove it from the gallery
   handleClick = e => {
     if (
       e.target.className === 'modal-close-btn' ||
