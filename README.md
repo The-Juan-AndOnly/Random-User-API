@@ -2,10 +2,11 @@
 
 ## Instructions
 
-![Employee Directory](./mockups/modal.png)
+- The page load up 12 random users fro the [Random User API](https://randomuser.me/)
 
-- 1 On Page Load up 12 random users will be displayed on the page
+- The User will be able to see an employee image, name, email, and city
+  ![Employee Directory](./mockups/modal.png)
 
-- 2 When clicking on a user their information will displayed in a modal
+* When clicking on an employees card a modal will appear displaying some further information such as phone number, address, and birthday.
 
 ![Employee Directory](./mockups/modalDetail.png)
